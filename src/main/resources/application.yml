@@ -22,6 +22,4 @@ spring:
       max-file-size: 15MB
       max-request-size: 15MB
 
-#
 #docker run --name postgres-airline-db -e POSTGRES_DB=airline -e POSTGRES_PASSWORD=root -d -p 5432:5432 postgres
-#
