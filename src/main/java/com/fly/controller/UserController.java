@@ -20,7 +20,7 @@ public class UserController {
 
     private UserService userService;
 
-    @ApiOperation(value = "Create a user", notes = "GLOBAL_ADMIN, COMPANY_ADMIN", nickname = "createUser")
+    @ApiOperation(value = "Create a user", nickname = "createUser")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successfully created"),
             @ApiResponse(code = 400, message = "Not valid dto"),
