@@ -14,11 +14,14 @@ spring:
         temp:
           use_jdbc_metadata_defaults: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     open-in-view: false
   servlet:
     multipart:
       enabled: true
       max-file-size: 15MB
       max-request-size: 15MB
+  liquibase:
+    change-log: classpath:db.changelog/changelog-master.xml
 
+#docker run --name postgres-airline-db -e POSTGRES_DB=airline -e POSTGRES_PASSWORD=root -d -p 5432:5432 postgres

@@ -30,6 +30,8 @@ public class User extends IdEntityCreatedUpdatedDeleted {
     @Column(nullable = false)
     private String password;
 
+    private boolean enabled;
+
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "users_authority", joinColumns = @JoinColumn(name = "user_id"))

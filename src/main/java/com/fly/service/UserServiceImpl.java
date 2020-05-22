@@ -26,6 +26,10 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validateCreation(User user) {
+        validatePermission(user);
+    }
+
+    private void validatePermission(User user) {
 
     }
 }

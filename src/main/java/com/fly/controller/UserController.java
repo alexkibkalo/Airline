@@ -29,7 +29,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "Not correct data"),
     })
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
+    @PostMapping("/user/registration")
     public Long create(@RequestBody @Valid UserCreateDto dto) {
         return userService.create(dto).getId();
     }
