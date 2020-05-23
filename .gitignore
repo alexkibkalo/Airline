@@ -15,3 +15,5 @@ build
 /gradlew.bat
 /gradlew
 lib
+out
+src/main/generated/
