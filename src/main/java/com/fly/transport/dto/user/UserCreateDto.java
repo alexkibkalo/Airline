@@ -1,4 +1,4 @@
-package com.fly.transport.dto;
+package com.fly.transport.dto.user;
 
 import com.fly.persistence.entity.user.UserRole;
 import com.fly.validation.UserRoleSubset;

@@ -60,7 +60,7 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="token_pkey" nullable="false"/>
             </column>
-            <column name="expiry_date" type="timestamp">
+            <column name="expiration" type="timestamp">
                 <constraints nullable="false"/>
             </column>
             <column name="token" type="varchar(255)">

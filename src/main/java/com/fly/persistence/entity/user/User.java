@@ -1,12 +1,16 @@
 package com.fly.persistence.entity.user;
 
 import com.fly.persistence.entity.general.IdEntityCreatedUpdatedDeleted;
+import com.fly.persistence.entity.token.Token;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -14,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class User extends IdEntityCreatedUpdatedDeleted {
+public class User extends IdEntityCreatedUpdatedDeleted implements UserDetails {
 
     private String firstName;
 
@@ -30,6 +34,9 @@ public class User extends IdEntityCreatedUpdatedDeleted {
     @Column(nullable = false)
     private String password;
 
+    @OneToOne(mappedBy = "user")
+    private Token token;
+
     private boolean enabled;
 
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
@@ -37,4 +44,28 @@ public class User extends IdEntityCreatedUpdatedDeleted {
     @CollectionTable(name = "users_authority", joinColumns = @JoinColumn(name = "user_id"))
     private List<UserRole> authorities = new ArrayList<>();
 
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 }

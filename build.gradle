@@ -33,6 +33,7 @@ dependencies {
     implementation "io.springfox:springfox-swagger-ui:${springFoxVersion}"
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation "org.liquibase:liquibase-core"
+    implementation "io.jsonwebtoken:jjwt:${jwtVersion}"
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
