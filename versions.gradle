@@ -1,6 +1,6 @@
 allprojects {
     ext {
-        mapstructVersion = '1.3.1.Final'
+        mapstructVersion = '1.2.0.Final'
         springFoxVersion = '2.9.2'
         jwtVersion = '0.6.0'
     }
