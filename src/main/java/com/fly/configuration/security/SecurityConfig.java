@@ -34,7 +34,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .anyRequest().permitAll()
-                .and().addFilterBefore(new AuthorizationFilter(tokenAuthorizationService), UsernamePasswordAuthenticationFilter.class);
+                .and()
+                .addFilterBefore(new AuthorizationFilter(tokenAuthorizationService), UsernamePasswordAuthenticationFilter.class);
 
     }
 

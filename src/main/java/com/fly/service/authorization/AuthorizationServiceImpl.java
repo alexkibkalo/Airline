@@ -15,12 +15,14 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
 @Service
 @Setter(onMethod_ = @Autowired)
+@Transactional
 public class AuthorizationServiceImpl implements AuthorizationService {
 
     private UserService userService;

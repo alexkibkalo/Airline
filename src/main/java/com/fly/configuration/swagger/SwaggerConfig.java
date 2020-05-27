@@ -3,8 +3,11 @@ package com.fly.configuration.swagger;
 import com.google.common.collect.Lists;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Pageable;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.SecurityReference;
@@ -20,11 +23,23 @@ import java.util.List;
 public class SwaggerConfig {
 
     @Bean
-    public Docket api() {
+    public Docket swaggerConfiguration() {
+
         return new Docket(DocumentationType.SWAGGER_2)
+                .useDefaultResponseMessages(false)
+                .ignoredParameterTypes(Pageable.class)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.fly"))
                 .paths(PathSelectors.any())
+                .build().apiInfo(apiInfo())
+                .securitySchemes(Lists.newArrayList(apiKey()))
+                .securityContexts(Lists.newArrayList(securityContext()));
+    }
+
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder().title("REST API")
+                .description("The REST API for Airlines").termsOfServiceUrl("")
+                .version("0.0.1")
                 .build();
     }
 

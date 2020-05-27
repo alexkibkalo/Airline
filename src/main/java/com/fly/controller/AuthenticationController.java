@@ -12,11 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-//import io.swagger.annotations.Api;
-//import io.swagger.annotations.ApiOperation;
-//import io.swagger.annotations.ApiResponse;
-//import io.swagger.annotations.ApiResponses;
-
 @Setter(onMethod_ = @Autowired)
 @RequestMapping(path = "authentication", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
