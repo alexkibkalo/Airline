@@ -22,7 +22,7 @@ public class UserCreateDto {
     private String email;
 
     @NotNull
-    @UserRoleSubset(anyOf = {UserRole.ADMIN, UserRole.USER})
+    @UserRoleSubset(anyOf = {UserRole.ADMIN, UserRole.MANAGER})
     private UserRole userRole;
 
 }

@@ -33,7 +33,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
 
     @Override
     public TokenOutcomeDto login(LoginDto loginDto) {
-        User actor = userService.findByEmail(loginDto.getEmail()).orElseThrow(UserNotFoundException::new);
+        User actor = userService.findByEmail(loginDto.getEmail());
 
         verification(actor);
 

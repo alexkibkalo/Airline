@@ -85,7 +85,6 @@ public class UserController {
         return userService.update(id, dto);
     }
 
-
     @ApiOperation(value = "Update a user's email", notes = "GLOBAL_ADMIN, COMPANY_ADMIN", nickname = "updateEmail")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Update accepted"),

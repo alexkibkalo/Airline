@@ -1,15 +1,9 @@
 package com.fly.validation.user;
 
-import com.fly.service.user.UserService;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.fly.service.actor.ActorService;
+import com.fly.validation.ValidationType;
 
-@Service
-@Setter(onMethod_ = @Autowired)
-public class UserValidationService {
+public interface UserValidationService extends ActorService {
 
-    private UserService userService;
-
-
+    void validate(ValidationType validationType);
 }
