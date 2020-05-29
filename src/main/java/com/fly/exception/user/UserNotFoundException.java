@@ -1,7 +1,10 @@
-package com.fly.exception.user;
+package com.fly.exception;
 
-import com.fly.exception.standart.NotFoundException;
+import javassist.NotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+@ResponseStatus(code = HttpStatus.UNAUTHORIZED, reason = "INVALID_EMAIL")
 public class UserNotFoundException extends NotFoundException {
 
     public UserNotFoundException() {
