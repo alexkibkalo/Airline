@@ -1,4 +1,4 @@
-package com.fly.validation;
+package com.fly.validation.userrole;
 
 import com.fly.persistence.entity.user.UserRole;
 
