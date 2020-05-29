@@ -24,4 +24,5 @@ public class AuthenticationController {
     public TokenOutcomeDto login(@RequestBody @Valid LoginDto dto) throws UserNotFoundException {
         return authorizationService.login(dto);
     }
+
 }

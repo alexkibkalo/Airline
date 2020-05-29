@@ -3,14 +3,14 @@ package com.fly.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(code = HttpStatus.UNAUTHORIZED, reason = "UNAUTHORIZED")
-public class UnauthorizedException extends RuntimeException {
+@ResponseStatus(code = HttpStatus.UNAUTHORIZED, reason = "INVALID_PASSWORD")
+public class UserPasswordException extends RuntimeException {
 
-    public UnauthorizedException() {
+    public UserPasswordException() {
         super(HttpStatus.UNAUTHORIZED.getReasonPhrase());
     }
 
-    public UnauthorizedException(String message) {
+    public UserPasswordException(String message) {
         super(message);
     }
 }
