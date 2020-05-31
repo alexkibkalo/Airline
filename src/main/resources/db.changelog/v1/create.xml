@@ -191,6 +191,147 @@
             </column>
         </createTable>
 
+        <createTable tableName="order">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="order_pkey" nullable="false"/>
+            </column>
+            <column name="created_by_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="users_created_by_id_fk" referencedTableName="users"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="users_updated_by_id_fk" referencedTableName="users"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="updated_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="flight_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="flight_id_fk" referencedTableName="flight"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="baggage">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="baggage_pkey" nullable="false"/>
+            </column>
+            <column name="hand_luggage_weight" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_hand_luggage" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="baggage_weight" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="change_departure_date" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cancellation" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="seat">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="seat_pkey" nullable="false"/>
+            </column>
+            <column name="latter" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="row" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type_seat" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="passenger">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="passenger_pkey" nullable="false"/>
+            </column>
+            <column name="created_by_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="users_created_by_id_fk" referencedTableName="users"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="created_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_by_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="users_updated_by_id_fk" referencedTableName="users"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="updated_at" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middle_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="phone" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_birthday" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="gender" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="citizenship" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passport_number" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="passport_expiry_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="order_id_fk" referencedTableName="order"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="baggage_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="baggage_id_fk" referencedTableName="baggage"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="seat_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="seat_id_fk" referencedTableName="seat"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="passengers_to_flights">
+            <column name="passenger_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="passenger_id_fk"
+                             referencedTableName="passenger"
+                             referencedColumnNames="id"/>
+            </column>
+            <column name="flight_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="flight_id_fk"
+                             referencedTableName="flight"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="passengers_to_flights"
+                       columnNames="passenger_id, flight_id"/>
+
+
         <loadData tableName="users" file="classpath:db.changelog/population/users.csv"/>
         <loadData tableName="users_authority" file="classpath:db.changelog/population/user_authority.csv"/>
 

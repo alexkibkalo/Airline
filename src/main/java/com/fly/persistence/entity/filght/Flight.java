@@ -2,17 +2,20 @@ package com.fly.persistence.entity.filght;
 
 import com.fly.persistence.entity.board.Board;
 import com.fly.persistence.entity.general.IdEntityCreatedUpdatedDeleted;
+import com.fly.persistence.entity.passenger.Passenger;
 import com.fly.persistence.entity.route.Route;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "flight")
 public class Flight extends IdEntityCreatedUpdatedDeleted {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -29,4 +32,12 @@ public class Flight extends IdEntityCreatedUpdatedDeleted {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, columnDefinition = "VARCHAR(255)")
     private FlightStatus status;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "passengers_to_flights",
+            joinColumns = @JoinColumn(name = "flight_id"),
+            inverseJoinColumns = @JoinColumn(name = "passenger_id")
+    )
+    private List<Passenger> passengers;
 }
