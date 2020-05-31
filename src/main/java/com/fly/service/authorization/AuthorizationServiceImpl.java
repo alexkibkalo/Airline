@@ -2,7 +2,7 @@ package com.fly.service.authorization;
 
 import com.fly.configuration.security.properties.JWTProperties;
 import com.fly.configuration.security.token.TokenHandler;
-import com.fly.exception.user.UserInvalidPasswordException;
+import com.fly.exception.user.UserBadCredentialsException;
 import com.fly.exception.user.UserNotFoundException;
 import com.fly.persistence.entity.token.Token;
 import com.fly.persistence.entity.user.User;
@@ -38,7 +38,7 @@ public class AuthorizationServiceImpl implements AuthorizationService {
         verification(actor);
 
         if (!passwordEncoder.matches(loginDto.getPassword(), actor.getPassword())) {
-            throw new UserInvalidPasswordException();
+            throw new UserBadCredentialsException();
         }
 
         Instant tokenExpiration = Instant.now()

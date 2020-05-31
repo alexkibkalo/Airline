@@ -3,9 +3,11 @@ package com.fly.transport.mapper.user;
 import com.fly.persistence.entity.user.User;
 import com.fly.transport.dto.user.UserCreateDto;
 import com.fly.transport.dto.user.UserOutcomeDto;
+import com.fly.transport.dto.user.UserUpdateDto;
 import lombok.Setter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
@@ -19,6 +21,6 @@ public abstract class UserMapper {
 
     public abstract UserOutcomeDto toDto(User user);
 
-//    public abstract User toEntity(UserUpdateDto dto, @MappingTarget User user);
+    public abstract User toEntity(UserUpdateDto dto, @MappingTarget User user);
 }
 

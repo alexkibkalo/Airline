@@ -1,6 +1,6 @@
 package com.fly.service.user;
 
-import com.fly.exception.user.UserInvalidEmailException;
+import com.fly.exception.user.UserBadCredentialsException;
 import com.fly.exception.user.UserNotFoundException;
 import com.fly.persistence.entity.user.User;
 import com.fly.persistence.repository.UserRepository;
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(UserInvalidEmailException::new);
+        return userRepository.findByEmail(email).orElseThrow(UserBadCredentialsException::new);
     }
 
     @Override
@@ -80,8 +80,7 @@ public class UserServiceImpl implements UserService {
 
         userValidationService.validateUpdating(user);
 
-//        return userMapper.toEntity(dto, user).getId();
-        return 1L;
+        return userMapper.toEntity(dto, user).getId();
     }
 
     @Override

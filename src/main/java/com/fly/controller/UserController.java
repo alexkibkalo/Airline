@@ -85,7 +85,7 @@ public class UserController {
         return userService.update(id, dto);
     }
 
-    @ApiOperation(value = "Update a user's email", notes = "GLOBAL_ADMIN, COMPANY_ADMIN", nickname = "updateEmail")
+    @ApiOperation(value = "Update a user's email", notes = "ADMIN, MANAGER, USER", nickname = "updateEmail")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Update accepted"),
             @ApiResponse(code = 400, message = "Not valid dto"),
@@ -94,8 +94,8 @@ public class UserController {
             @ApiResponse(code = 404, message = "Not correct data"),
     })
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyAuthority('USER')")
-    @PatchMapping("{id}/emails")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'USER')")
+    @PatchMapping("{id}/email")
     public Long updateEmail(@PathVariable Long id, @RequestBody UserUpdateEmailDto dto) {
         return userService.update(id, dto);
     }

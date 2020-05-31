@@ -1,6 +1,7 @@
 package com.fly.service.token;
 
 import com.fly.configuration.security.properties.JWTProperties;
+import com.fly.exception.standart.BadRequestException;
 import com.fly.persistence.entity.token.Token;
 import com.fly.persistence.entity.user.User;
 import com.fly.persistence.repository.TokenRepository;
@@ -39,7 +40,11 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public void delete(Token token) {
-        tokenRepository.delete(token);
+        if(token != null){
+            tokenRepository.delete(token);
+        } else {
+            throw new BadRequestException("Login first");
+        }
     }
 
     @Override

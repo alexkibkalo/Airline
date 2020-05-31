@@ -1,7 +1,7 @@
 package com.fly.validation.user;
 
 import com.fly.exception.standart.ForbiddenException;
-import com.fly.exception.user.UserInvalidPasswordException;
+import com.fly.exception.user.UserBadCredentialsException;
 import com.fly.exception.user.UserWithSuchEmailAlreadyExistsException;
 import com.fly.persistence.entity.user.User;
 import com.fly.service.user.UserService;
@@ -52,7 +52,7 @@ public class UserValidationServiceImpl implements UserValidationService {
         User actor = getActorFromContext();
 
         if (!passwordEncoder.matches(dto.getPassword(), actor.getPassword())) {
-            throw new UserInvalidPasswordException();
+            throw new UserBadCredentialsException();
         }
     }
 
@@ -66,7 +66,7 @@ public class UserValidationServiceImpl implements UserValidationService {
         User actor = getActorFromContext();
 
         if(!dto.getOldEmail().equals(actor.getEmail())){
-            throw new UserInvalidPasswordException();
+            throw new UserBadCredentialsException();
         }
     }
 
