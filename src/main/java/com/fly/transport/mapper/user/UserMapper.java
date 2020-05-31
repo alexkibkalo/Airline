@@ -18,5 +18,7 @@ public abstract class UserMapper {
     public abstract User toEntity(UserCreateDto dto);
 
     public abstract UserOutcomeDto toDto(User user);
+
+//    public abstract User toEntity(UserUpdateDto dto, @MappingTarget User user);
 }
 

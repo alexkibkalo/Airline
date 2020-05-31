@@ -1,6 +1,7 @@
 package com.fly.service.user;
 
 import com.fly.exception.user.UserInvalidEmailException;
+import com.fly.exception.user.UserNotFoundException;
 import com.fly.persistence.entity.user.User;
 import com.fly.persistence.repository.UserRepository;
 import com.fly.transport.dto.user.UserCreateDto;
@@ -8,7 +9,6 @@ import com.fly.transport.dto.user.UserOutcomeDto;
 import com.fly.transport.dto.user.UserUpdateDto;
 import com.fly.transport.dto.user.UserUpdateEmailDto;
 import com.fly.transport.mapper.user.UserMapper;
-import com.fly.validation.ValidationType;
 import com.fly.validation.user.UserValidationService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,50 +32,78 @@ public class UserServiceImpl implements UserService {
     public User create(UserCreateDto dto) {
         User user = userMapper.toEntity(dto);
 
-        validateCreation();
+        userValidationService.validateCreation(user);
 
         return userRepository.save(user);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(UserInvalidEmailException::new);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
 
     @Override
-    public void delete(Long id) {
+    @Transactional(readOnly = true)
+    public User findByIdUnsafe(Long id) {
+        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    }
 
+    @Override
+    public void delete(Long id) {
+        User user = findByIdUnsafe(id);
+
+        userValidationService.validateDeleting(user);
+
+        user.setDeleted(true);
     }
 
     @Override
     public Long recovery(Long id) {
-        return null;
+        User user = findByIdUnsafe(id);
+
+        userValidationService.validateRecovering(user);
+        user.setDeleted(false);
+
+        return user.getId();
     }
 
     @Override
     public Long update(Long id, UserUpdateDto dto) {
-        return null;
+        User user = findByIdUnsafe(id);
+
+        userValidationService.validateUpdating(user);
+
+//        return userMapper.toEntity(dto, user).getId();
+        return 1L;
     }
 
     @Override
     public Long update(Long id, UserUpdateEmailDto dto) {
-        return null;
+        User user = findByIdUnsafe(id);
+
+        userValidationService.validateUpdatingEmail(user, dto);
+        user.setEmail(dto.getNewEmail());
+
+        return user.getId();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserOutcomeDto> getAll() {
         return userRepository.findAll().stream()
                 .map(userMapper::toDto)
                 .collect(Collectors.toList());
     }
 
-    private void validateCreation() {
-        userValidationService.validate(ValidationType.PERMISSIONS_USER_SERVICE);
-        userValidationService.validate(ValidationType.CREATION_USER);
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 }

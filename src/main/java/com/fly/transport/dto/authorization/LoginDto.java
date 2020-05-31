@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -13,10 +14,12 @@ public class LoginDto {
 
     @Email
     @NotBlank
-    @ApiModelProperty(example = "airline@gmail.com", required = true)
+    @NotNull
+    @ApiModelProperty(value = "airlinea@gmail.com")
     private String email;
 
     @NotBlank
-    @ApiModelProperty(example = "111111", required = true)
+    @NotNull
+    @ApiModelProperty(value = "111111")
     private String password;
 }

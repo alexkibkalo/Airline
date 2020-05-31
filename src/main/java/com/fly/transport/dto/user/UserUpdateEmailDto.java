@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class UserUpdateEmailDto {
 
+    @Email
     @NotNull
     @NotBlank
     private String oldEmail;

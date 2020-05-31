@@ -63,7 +63,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "Not correct data"),
     })
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'USER')")
     @PatchMapping("{id}")
     public Long recovery(@PathVariable Long id) {
         return userService.recovery(id);
@@ -79,7 +79,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "Not correct data"),
     })
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyAuthority('GLOBAL_ADMIN', 'COMPANY_ADMIN', 'PROJECT_USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'USER')")
     @PutMapping("{id}")
     public Long update(@PathVariable Long id, @RequestBody @Valid UserUpdateDto dto) {
         return userService.update(id, dto);
@@ -94,7 +94,7 @@ public class UserController {
             @ApiResponse(code = 404, message = "Not correct data"),
     })
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyAuthority('GLOBAL_ADMIN', 'COMPANY_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('USER')")
     @PatchMapping("{id}/emails")
     public Long updateEmail(@PathVariable Long id, @RequestBody UserUpdateEmailDto dto) {
         return userService.update(id, dto);

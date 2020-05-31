@@ -6,6 +6,7 @@ import com.fly.transport.dto.user.UserCreateDto;
 import com.fly.transport.dto.user.UserOutcomeDto;
 import com.fly.transport.dto.user.UserUpdateDto;
 import com.fly.transport.dto.user.UserUpdateEmailDto;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,9 @@ public interface UserService extends ActorService {
 
     Optional<User> findById(Long id);
 
+    @Transactional(readOnly = true)
+    User findByIdUnsafe(Long id);
+
     void delete(Long id);
 
     Long recovery(Long id);
@@ -27,4 +31,6 @@ public interface UserService extends ActorService {
     Long update(Long id, UserUpdateEmailDto dto);
 
     List<UserOutcomeDto> getAll();
+
+    boolean existsByEmail(String email);
 }

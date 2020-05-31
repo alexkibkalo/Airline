@@ -8,16 +8,12 @@ plugins {
 compileJava {
     options.compilerArgs = [
             '-Amapstruct.defaultComponentModel=spring',
-            '-Amapstruct.unmappedTargetPolicy=IGNORE'
+            '-Amapstruct.unmappedTargetPolicy=IGNORE',
     ]
 }
 
 repositories {
     mavenCentral()
-}
-
-sourceSets {
-    main.java.srcDirs += "build/generated/sources/"
 }
 
 configurations {
@@ -65,4 +61,3 @@ tasks.withType(JavaCompile) {
 test {
     useJUnitPlatform()
 }
-
