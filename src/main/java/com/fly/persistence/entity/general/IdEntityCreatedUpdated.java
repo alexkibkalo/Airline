@@ -38,6 +38,4 @@ public abstract class IdEntityCreatedUpdated extends IdEntity {
     @Column(nullable = false)
     private Instant updatedAt;
 
-    public IdEntityCreatedUpdated(Long userId) {
-    }
 }

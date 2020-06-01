@@ -1,6 +1,6 @@
 package com.fly.exception.user;
 
-import com.fly.exception.standart.NotFoundException;
+import com.fly.exception.standard.NotFoundException;
 
 public class UserNotFoundException extends NotFoundException {
 

@@ -3,6 +3,7 @@ package com.fly.controller;
 import com.fly.service.authorization.AuthorizationService;
 import com.fly.transport.dto.authorization.LoginDto;
 import com.fly.transport.dto.token.TokenOutcomeDto;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Setter(onMethod_ = @Autowired)
+@Api(value = "Authentication", description = "REST API for Authentication", tags = {"Authentication"})
 @RequestMapping(path = "authentication", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class AuthenticationController {

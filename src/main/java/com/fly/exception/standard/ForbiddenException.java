@@ -1,4 +1,4 @@
-package com.fly.exception.standart;
+package com.fly.exception.standard;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

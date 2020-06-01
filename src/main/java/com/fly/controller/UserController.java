@@ -5,6 +5,7 @@ import com.fly.transport.dto.user.UserCreateDto;
 import com.fly.transport.dto.user.UserOutcomeDto;
 import com.fly.transport.dto.user.UserUpdateDto;
 import com.fly.transport.dto.user.UserUpdateEmailDto;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Setter(onMethod_ = @Autowired)
+@Api(value = "UserController", description = "REST API for User", tags = {"User"})
 @RequestMapping(path = "users", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class UserController {
@@ -95,9 +97,9 @@ public class UserController {
     })
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'USER')")
-    @PatchMapping("{id}/email")
-    public Long updateEmail(@PathVariable Long id, @RequestBody UserUpdateEmailDto dto) {
-        return userService.update(id, dto);
+    @PatchMapping("email")
+    public Long updateEmail(@RequestBody UserUpdateEmailDto dto) {
+        return userService.update(dto);
     }
 
     @ApiOperation(value = "Finding users", notes = "ADMIN, MANAGER", nickname = "findAllUsers")

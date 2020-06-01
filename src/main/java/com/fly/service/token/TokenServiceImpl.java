@@ -1,7 +1,7 @@
 package com.fly.service.token;
 
 import com.fly.configuration.security.properties.JWTProperties;
-import com.fly.exception.standart.BadRequestException;
+import com.fly.exception.standard.BadRequestException;
 import com.fly.persistence.entity.token.Token;
 import com.fly.persistence.entity.user.User;
 import com.fly.persistence.repository.TokenRepository;

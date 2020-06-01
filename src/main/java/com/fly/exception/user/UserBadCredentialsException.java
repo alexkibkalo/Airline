@@ -1,6 +1,6 @@
 package com.fly.exception.user;
 
-import com.fly.exception.standart.UnauthorizedException;
+import com.fly.exception.standard.UnauthorizedException;
 
 public class UserBadCredentialsException extends UnauthorizedException {
 

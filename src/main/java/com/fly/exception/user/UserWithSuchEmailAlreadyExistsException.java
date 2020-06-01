@@ -1,6 +1,6 @@
 package com.fly.exception.user;
 
-import com.fly.exception.standart.BadRequestException;
+import com.fly.exception.standard.BadRequestException;
 
 public class UserWithSuchEmailAlreadyExistsException extends BadRequestException {
 

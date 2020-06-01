@@ -4,6 +4,7 @@ import com.fly.exception.user.UserBadCredentialsException;
 import com.fly.exception.user.UserNotFoundException;
 import com.fly.persistence.entity.user.User;
 import com.fly.persistence.repository.UserRepository;
+import com.fly.service.password.Generator;
 import com.fly.transport.dto.user.UserCreateDto;
 import com.fly.transport.dto.user.UserOutcomeDto;
 import com.fly.transport.dto.user.UserUpdateDto;
@@ -12,9 +13,11 @@ import com.fly.transport.mapper.user.UserMapper;
 import com.fly.validation.user.UserValidationService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,12 +30,26 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private UserMapper userMapper;
     private UserValidationService userValidationService;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User create(UserCreateDto dto) {
         User user = userMapper.toEntity(dto);
 
         userValidationService.validateCreation(user);
+
+        String password = Generator.generatePassword(9);
+        System.out.println(password); //todo It will delete
+
+        User actor = getActorFromContext();
+        user.setCreatedAt(Instant.now());
+        user.setCreatedBy(actor);
+        user.setUpdatedAt(Instant.now());
+        user.setUpdatedBy(actor);
+        user.setEnabled(true);
+        user.setPassword(passwordEncoder.encode(password));
+
+        //todo 38-42 must be generated automatically
 
         return userRepository.save(user);
     }
@@ -84,8 +101,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long update(Long id, UserUpdateEmailDto dto) {
-        User user = findByIdUnsafe(id);
+    public Long update(UserUpdateEmailDto dto) {
+        User user = findByIdUnsafe(getActorFromContext().getId());
 
         userValidationService.validateUpdatingEmail(user, dto);
         user.setEmail(dto.getNewEmail());

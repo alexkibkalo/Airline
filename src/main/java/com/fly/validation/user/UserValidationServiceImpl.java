@@ -1,6 +1,7 @@
 package com.fly.validation.user;
 
-import com.fly.exception.standart.ForbiddenException;
+import com.fly.exception.standard.BadRequestException;
+import com.fly.exception.standard.ForbiddenException;
 import com.fly.exception.user.UserBadCredentialsException;
 import com.fly.exception.user.UserWithSuchEmailAlreadyExistsException;
 import com.fly.persistence.entity.user.User;
@@ -38,6 +39,7 @@ public class UserValidationServiceImpl implements UserValidationService {
     @Override
     public void validateUpdatingEmail(User user, UserUpdateEmailDto dto) {
         validateUpdatingPermissions(user);
+        validateOldAndNewEmailNotEqual(dto);
         validateTruePassword(dto);
         validateOldEmail(dto);
         validateUniqueEmail(dto.getNewEmail());
@@ -46,6 +48,12 @@ public class UserValidationServiceImpl implements UserValidationService {
     @Override
     public void validateRecovering(User user) {
         validateDeletingRecoveringPermissions(user);
+    }
+
+    private void validateOldAndNewEmailNotEqual(UserUpdateEmailDto dto) {
+        if(dto.getNewEmail().equals(dto.getOldEmail())){
+            throw new BadRequestException("New email must be different from old");
+        }
     }
 
     private void validateTruePassword(UserUpdateEmailDto dto) {
