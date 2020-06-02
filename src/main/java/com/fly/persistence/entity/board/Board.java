@@ -37,9 +37,8 @@ public class Board extends IdEntity {
     @Column(nullable = false)
     private Integer capacity;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
-    private BoardStatus status;
+    @Column(nullable = false)
+    private Boolean status;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Flight> flights;
