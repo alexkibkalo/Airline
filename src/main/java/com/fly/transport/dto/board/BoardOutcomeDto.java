@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class BoardOutcomeDto {
 
     private String aircraft;
@@ -22,4 +21,6 @@ public class BoardOutcomeDto {
     private byte[] photo;
 
     private Integer capacity;
+
+    private boolean available;
 }

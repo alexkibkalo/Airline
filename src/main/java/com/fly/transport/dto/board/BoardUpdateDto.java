@@ -16,10 +16,6 @@ public class BoardUpdateDto {
 
     @NotBlank
     @NotNull
-    private String registration;
-
-    @NotBlank
-    @NotNull
     private String country;
 
     @NotBlank
@@ -30,11 +26,8 @@ public class BoardUpdateDto {
     @NotNull
     private String airline;
 
-    private byte[] photo;
-
+    @NotNull
     private Integer capacity;
 
-//    @NotBlank
-//    @NotNull
-//    private String status;
+    private boolean available;
 }

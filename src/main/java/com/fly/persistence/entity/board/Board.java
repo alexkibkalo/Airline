@@ -38,7 +38,7 @@ public class Board extends IdEntity {
     private Integer capacity;
 
     @Column(nullable = false)
-    private Boolean status;
+    private boolean available;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Flight> flights;

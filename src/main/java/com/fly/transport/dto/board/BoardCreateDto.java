@@ -36,9 +36,10 @@ public class BoardCreateDto {
 
     private byte[] photo;
 
+    @NotNull
     private Integer capacity;
 
-//    @NotBlank
-//    @NotNull
-//    private String status;
+    @NotNull
+    private boolean available;
+
 }

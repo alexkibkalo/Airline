@@ -2,10 +2,9 @@ package com.fly.service.board;
 
 import com.fly.persistence.entity.board.Board;
 import com.fly.service.actor.ActorService;
-import com.fly.transport.dto.board.BoardCreateDto;
-import com.fly.transport.dto.board.BoardOutcomeDto;
-import com.fly.transport.dto.board.BoardUpdateDto;
+import com.fly.transport.dto.board.*;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BoardService extends ActorService {
@@ -14,9 +13,17 @@ public interface BoardService extends ActorService {
 
     BoardOutcomeDto findByRegistration(String registration);
 
-    BoardOutcomeDto findById(Long id);
+    Board findByIdUnsafe(Long id);
 
     void delete(Long id);
 
-    Board update(Long id, BoardUpdateDto dto);
+    Long update(Long id, BoardUpdateDto dto);
+
+    Long update(BoardUpdateRegistrationDto dto);
+
+    boolean existByRegistration(String registration);
+
+    List<BoardOutcomeDto> getAll();
+
+    Long updatePhoto(Long id, BoardPhotoUpdateDto dto);
 }
