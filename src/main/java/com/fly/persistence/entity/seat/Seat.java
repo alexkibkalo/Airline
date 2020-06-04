@@ -18,7 +18,7 @@ public class Seat extends IdEntity {
     private Integer row;
 
     @Column(nullable = false)
-    private String latter;
+    private String letter;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
