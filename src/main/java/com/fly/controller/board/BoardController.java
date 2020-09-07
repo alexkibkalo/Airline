@@ -2,7 +2,9 @@ package com.fly.controller.board;
 
 import com.fly.persistence.entity.board.Board;
 import com.fly.service.board.BoardService;
-import com.fly.transport.dto.board.*;
+import com.fly.transport.dto.board.BoardCreateDto;
+import com.fly.transport.dto.board.BoardOutcomeDto;
+import com.fly.transport.dto.board.BoardUpdateDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -25,6 +27,19 @@ public class BoardController {
 
     private BoardService boardService;
 
+    @ApiOperation(value = "Finding boards", notes = "ADMIN, MANAGER", nickname = "findAllBoards")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully found"),
+            @ApiResponse(code = 400, message = "Not valid dto"),
+            @ApiResponse(code = 401, message = "Not correct token")
+    })
+    @ResponseStatus(code = HttpStatus.OK)
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+    @GetMapping
+    public List<BoardOutcomeDto> getAll() {
+        return boardService.getAll();
+    }
+
     @ApiOperation(value = "Create a board", notes = "ADMIN, MANAGER", nickname = "createBoard")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Successfully created"),
@@ -40,20 +55,6 @@ public class BoardController {
         return boardService.create(dto).getId();
     }
 
-    @ApiOperation(value = "Delete a board by id", notes = "ADMIN, MANAGER", nickname = "deleteBoard")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Deleted successfully"),
-            @ApiResponse(code = 401, message = "Not correct token"),
-            @ApiResponse(code = 403, message = "User doesn't have permission"),
-            @ApiResponse(code = 404, message = "Not correct data"),
-    })
-    @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
-    @DeleteMapping("{id}")
-    public void delete (@PathVariable Long id) {
-        boardService.delete(id);
-    }
-
     @ApiOperation(value = "Update a board", notes = "ADMIN, MANAGER", nickname = "updateBoard")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Update accepted"),
@@ -65,63 +66,38 @@ public class BoardController {
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
     @PutMapping("{id}")
-    public Long update(@PathVariable Long id, @RequestBody @Valid BoardUpdateDto dto) {
+    public Board update(@PathVariable Long id, @RequestBody @Valid BoardUpdateDto dto) {
         return boardService.update(id, dto);
     }
-    @ApiOperation(value = "Update a board's registration", notes = "ADMIN, MANAGER", nickname = "updateRegistration")
+
+    @ApiOperation(value = "Delete a board by id", notes = "ADMIN, MANAGER", nickname = "deleteBoard")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Update accepted"),
-            @ApiResponse(code = 400, message = "Not valid dto"),
+            @ApiResponse(code = 200, message = "Deleted successfully"),
             @ApiResponse(code = 401, message = "Not correct token"),
             @ApiResponse(code = 403, message = "User doesn't have permission"),
             @ApiResponse(code = 404, message = "Not correct data"),
     })
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
-    @PatchMapping("registration")
-    public Long updateRegistration(@RequestBody @Valid BoardUpdateRegistrationDto dto) {
-        return boardService.update(dto);
+    @DeleteMapping("{id}")
+    public Long delete (@PathVariable Long id) {
+        return boardService.delete(id);
     }
 
-    @ApiOperation(value = "Finding board", notes = "ADMIN, MANAGER", nickname = "findBoardByRegistration")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully found"),
-            @ApiResponse(code = 400, message = "Not valid dto"),
-            @ApiResponse(code = 401, message = "Not correct token"),
-            @ApiResponse(code = 403, message = "User doesn't have permission")
-    })
-    @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER', 'USER')")
-    @GetMapping("/registration/{registration}")
-    public BoardOutcomeDto getByRegistration(@PathVariable String registration) {
-        return boardService.findByRegistration(registration);
-    }
 
-    @ApiOperation(value = "Finding boards", notes = "ADMIN, MANAGER", nickname = "findAllBoards")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully found"),
-            @ApiResponse(code = 400, message = "Not valid dto"),
-            @ApiResponse(code = 401, message = "Not correct token")
-    })
-    @ResponseStatus(code = HttpStatus.OK)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
-    @GetMapping
-    public List<BoardOutcomeDto> getAll() {
-        return boardService.getAll();
-    }
+//    @ApiOperation(value = "Update a board's registration", notes = "ADMIN, MANAGER", nickname = "updateRegistration")
+//    @ApiResponses(value = {
+//            @ApiResponse(code = 200, message = "Update accepted"),
+//            @ApiResponse(code = 400, message = "Not valid dto"),
+//            @ApiResponse(code = 401, message = "Not correct token"),
+//            @ApiResponse(code = 403, message = "User doesn't have permission"),
+//            @ApiResponse(code = 404, message = "Not correct data"),
+//    })
+//    @ResponseStatus(HttpStatus.OK)
+//    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
+//    @PatchMapping("registration")
+//    public Long updateRegistration(@RequestBody @Valid BoardUpdateRegistrationDto dto) {
+//        return boardService.update(dto);
+//    }
 
-    @ApiOperation(value = "Update a board's photo", notes = "ADMIN, MANAGER", nickname = "updateBoardPhoto")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Update accepted"),
-            @ApiResponse(code = 400, message = "Not valid dto"),
-            @ApiResponse(code = 401, message = "Not correct token"),
-            @ApiResponse(code = 403, message = "User doesn't have permission"),
-            @ApiResponse(code = 404, message = "Not correct data"),
-    })
-    @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'MANAGER')")
-    @PutMapping("/update-photo/{id}")
-    public Long updatePhoto(@PathVariable Long id, @RequestBody @Valid BoardPhotoUpdateDto dto){
-        return boardService.updatePhoto(id, dto);
-    }
 }

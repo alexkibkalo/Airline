@@ -30,4 +30,7 @@ public class BoardUpdateDto {
     private Integer capacity;
 
     private boolean available;
+
+    @NotNull
+    private String photo;
 }
